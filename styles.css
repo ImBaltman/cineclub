@@ -167,7 +167,7 @@ button, input { font: inherit; }
   color: var(--bone);
   font-size: 15px;
 }
-.campo input::placeholder { color: rgba(245, 241, 232, 0.3); }
+.campo input::placeholder { color: color-mix(in srgb, var(--bone) 30%, transparent); }
 .campo:focus-within { border-color: color-mix(in srgb, var(--blood) 60%, transparent); }
 .login__error { margin: 0; font-size: 13px; color: var(--blood-2); text-align: center; }
 .login__pie { margin-top: 28px; font-size: 12px; color: var(--muted); }
@@ -179,20 +179,20 @@ button, input { font: inherit; }
   height: 62vh;
   min-height: 420px;
   overflow: hidden;
-  background: #0b0b0b;
+  background: var(--bg);
 }
 .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg) 0%, rgba(6, 6, 6, 0.3) 35%, transparent 60%);
+  background: linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 30%, transparent) 35%, transparent 60%);
 }
 .hero--sin-poster {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 30%, #3a0503 0%, #0b0b0b 70%);
+  background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--blood) 35%, #000) 0%, var(--bg) 70%);
 }
 .hero--sin-poster .hero__placeholder { font-size: 42px; text-align: center; padding: 0 24px; z-index: 1; }
 .badge {
@@ -233,7 +233,7 @@ button, input { font: inherit; }
 .chip--texto { background: transparent; color: var(--muted); border: 1px solid var(--line); font-weight: 400; }
 .sinopsis { margin-top: 22px; }
 .sinopsis__titulo { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin-bottom: 10px; }
-.sinopsis p { margin: 0; font-size: 14.5px; line-height: 1.7; color: rgba(245, 241, 232, 0.8); }
+.sinopsis p { margin: 0; font-size: 14.5px; line-height: 1.7; color: color-mix(in srgb, var(--bone) 80%, transparent); }
 .acciones { margin-top: 24px; display: grid; gap: 10px; }
 .vacio { padding: 80px 24px; text-align: center; color: var(--muted); }
 
@@ -310,7 +310,7 @@ button, input { font: inherit; }
   text-align: center;
 }
 .modal .carta { width: 170px; margin: 0 auto 18px; }
-.modal__lore { margin: 14px 0 20px; font-size: 14px; line-height: 1.6; color: rgba(245, 241, 232, 0.8); }
+.modal__lore { margin: 14px 0 20px; font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--bone) 80%, transparent); }
 .modal__cerrar { position: absolute; }
 
 /* ---------- Bottom nav ---------- */
@@ -361,7 +361,7 @@ button, input { font: inherit; }
 }
 .bienvenida .carta { width: 200px; margin: 12px 0 8px; }
 .bienvenida__titulo { font-size: 44px; margin: 0; }
-.bienvenida p { margin: 0; color: rgba(245, 241, 232, 0.8); line-height: 1.6; max-width: 300px; }
+.bienvenida p { margin: 0; color: color-mix(in srgb, var(--bone) 80%, transparent); line-height: 1.6; max-width: 300px; }
 .bienvenida .btn-primario { margin-top: 18px; }
 
 /* ---------- Admin ---------- */
@@ -526,7 +526,7 @@ button, input { font: inherit; }
 }
 .pantalla-cuenta .eyebrow { align-self: flex-start; }
 .cuenta__titulo { font-size: 40px; margin: 8px 0 0; }
-.cuenta__texto { margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: rgba(245, 241, 232, 0.75); }
+.cuenta__texto { margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--bone) 75%, transparent); }
 .cuenta__form { margin-top: 28px; display: grid; gap: 12px; }
 .cuenta__ok { margin: 0; font-size: 13px; color: #4ade80; text-align: center; }
 
