@@ -54,7 +54,7 @@ button, input { font: inherit; }
 }
 
 .glow-rojo {
-  text-shadow: 0 0 26px rgba(225, 6, 0, 0.38), 0 0 4px rgba(225, 6, 0, 0.35), 0 2px 0 rgba(0, 0, 0, 0.6);
+  text-shadow: 0 0 26px color-mix(in srgb, var(--blood-2) 38%, transparent), 0 0 4px color-mix(in srgb, var(--blood-2) 35%, transparent), 0 2px 0 rgba(0, 0, 0, 0.6);
 }
 
 .eyebrow {
@@ -168,7 +168,7 @@ button, input { font: inherit; }
   font-size: 15px;
 }
 .campo input::placeholder { color: rgba(245, 241, 232, 0.3); }
-.campo:focus-within { border-color: rgba(225, 6, 0, 0.6); }
+.campo:focus-within { border-color: color-mix(in srgb, var(--blood) 60%, transparent); }
 .login__error { margin: 0; font-size: 13px; color: var(--blood-2); text-align: center; }
 .login__pie { margin-top: 28px; font-size: 12px; color: var(--muted); }
 
@@ -471,7 +471,7 @@ button, input { font: inherit; }
 }
 
 /* Botón de trailer más visible */
-.btn-trailer { border: 1px solid var(--blood-2); box-shadow: 0 0 18px rgba(225, 6, 0, 0.25); }
+.btn-trailer { border: 1px solid var(--blood-2); box-shadow: 0 0 18px color-mix(in srgb, var(--blood-2) 25%, transparent); }
 
 /* ---------- Carta con capas y efecto 3D ---------- */
 .fx-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; width: min(240px, 80vw); margin: 0 auto; }
@@ -485,7 +485,7 @@ button, input { font: inherit; }
   user-select: none;
   -webkit-user-select: none;
   transform: perspective(700px) rotateX(calc((0.5 - var(--y, 0.5)) * 16deg)) rotateY(calc((var(--x, 0.5) - 0.5) * 16deg));
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px color-mix(in srgb, var(--blood) 30%, transparent);
   will-change: transform;
 }
 .fx--suave { transition: transform 0.5s ease; }
@@ -590,13 +590,13 @@ button, input { font: inherit; }
 
 /* Reverso de la carta: mismo movimiento que el anverso, con el eje X invertido por el giro de 180° */
 .fx--espejo { transform: perspective(700px) rotateX(calc((0.5 - var(--y, 0.5)) * 16deg)) rotateY(calc((0.5 - var(--x, 0.5)) * 16deg)); }
-.fx--reverso { width: 100%; height: 100%; aspect-ratio: auto; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(225, 6, 0, 0.3); }
+.fx--reverso { width: 100%; height: 100%; aspect-ratio: auto; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px color-mix(in srgb, var(--blood) 30%, transparent); }
 .fx__fondo { position: absolute; inset: 0; background-size: cover; background-position: center; }
 @media (prefers-reduced-motion: reduce) { .fx--espejo { transform: none; } }
 
 /* Giro 3D de la carta. La inclinación va en el contenedor externo, no en las caras. */
 .flip.fx { overflow: visible; box-shadow: none; border-radius: 0; aspect-ratio: 1232 / 1712; }
-.flip__cara { overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(225, 6, 0, 0.3); }
+.flip__cara { overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px color-mix(in srgb, var(--blood) 30%, transparent); }
 .flip__cara--reverso { transform: rotateY(180deg); }
 .fx-capas { position: relative; width: 100%; aspect-ratio: 1232 / 1712; border-radius: 14px; overflow: hidden; }
 .flip__cara--frente .fx-capas { position: absolute; inset: 0; aspect-ratio: auto; }
