@@ -602,29 +602,48 @@ button, input { font: inherit; }
 .flip__cara--frente .fx-capas { position: absolute; inset: 0; aspect-ratio: auto; }
 
 /* ---------- Carta con efecto (Mi colección) ---------- */
+/* Estructura de .card__translater / .card__rotator: perspectiva 600px y preserve-3d */
 .carta-efecto {
   position: relative;
   width: min(88vw, 420px);
   aspect-ratio: 1232 / 1712;
-  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform 0.25s ease-out;
+  perspective: 600px;
   cursor: pointer;
-  will-change: transform;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
-.carta-efecto.idle { animation: carta-flota 6s ease-in-out infinite; }
-@keyframes carta-flota {
-  0%, 100% { transform: rotateX(calc(var(--rx, 0deg) + 4deg)) rotateY(calc(var(--ry, 0deg) + 4deg)); }
-  50% { transform: rotateX(calc(var(--rx, 0deg) - 4deg)) rotateY(calc(var(--ry, 0deg) - 4deg)); }
+.carta-efecto__flota {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
 }
-/* Carta oculta: quieta, sin inclinación, flotación ni giro */
-.carta-efecto--quieta { cursor: default; transform: none; transition: none; animation: none; }
+.carta-efecto__flota.idle { animation: carta-flota 6s ease-in-out infinite; }
+@keyframes carta-flota {
+  0%, 100% { transform: rotateX(4deg) rotateY(4deg); }
+  50% { transform: rotateX(-4deg) rotateY(-4deg); }
+}
+.carta-efecto__rotador {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateY(var(--rotate-x, 0deg)) rotateX(var(--rotate-y, 0deg));
+  will-change: transform;
+}
+.carta-efecto__girador {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.carta-efecto--volteada .carta-efecto__girador { transform: rotateY(180deg); }
 
-.carta-efecto__inner { position: absolute; inset: 0; perspective: 1000px; }
+/* Carta oculta: quieta, sin inclinación, flotación ni giro */
+.carta-efecto--quieta { cursor: default; }
+.carta-efecto--quieta .carta-efecto__cara { position: absolute; inset: 0; }
+
 .carta-efecto__cara {
   position: absolute;
   inset: 0;
@@ -635,15 +654,8 @@ button, input { font: inherit; }
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
-  will-change: transform;
-  --mxl: calc(var(--mxn, 50) * 1%);
-  --myl: calc(var(--myn, 50) * 1%);
 }
-.carta-efecto__cara--frente { transform: rotateY(0deg); }
-.carta-efecto__cara--reverso { transform: rotateY(-180deg); }
-.carta-efecto--volteada .carta-efecto__cara--frente { transform: rotateY(180deg); }
-.carta-efecto--volteada .carta-efecto__cara--reverso { transform: rotateY(0deg); }
+.carta-efecto__cara--reverso { transform: rotateY(180deg); }
 
 .carta-efecto__capa {
   position: absolute;
@@ -654,46 +666,42 @@ button, input { font: inherit; }
   background-position: center;
 }
 
-/* Foil: solo en el anverso, recortado por la máscara */
+/* Foil: color plano de foil_color, recortado por la máscara y visible solo donde pasa la luz */
 .carta-efecto__foil {
-  background-image: linear-gradient(
-    115deg,
-    var(--foil-oscuro) 0%,
-    var(--foil-base) 25%,
-    var(--foil-claro) 42%,
-    var(--foil-base) 58%,
-    var(--foil-oscuro) 80%
-  );
-  background-size: 260% 260%;
-  background-position: var(--mxl) var(--myl);
-  mix-blend-mode: screen;
-  opacity: calc(var(--o, 0) * 0.85);
-  -webkit-mask-image: var(--mascara);
-          mask-image: var(--mascara);
-  -webkit-mask-size: cover;
-          mask-size: cover;
-  -webkit-mask-position: center;
-          mask-position: center;
-  -webkit-mask-mode: luminance;
-          mask-mode: luminance;
+  background: var(--foil-color, #6900b3);
+  -webkit-mask-image: var(--mask-img), radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(0, 0, 0, var(--card-opacity, 0)) 0%, rgba(0, 0, 0, 0) 40%);
+          mask-image: var(--mask-img), radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(0, 0, 0, var(--card-opacity, 0)) 0%, rgba(0, 0, 0, 0) 40%);
+  -webkit-mask-size: cover, 100% 100%;
+          mask-size: cover, 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+  mix-blend-mode: normal;
 }
 
-.carta-efecto__sheen {
-  background-image: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.35) 48%, transparent 62%);
-  background-size: 300% 300%;
-  background-position: calc(100% - var(--mxl)) calc(100% - var(--myl));
-  mix-blend-mode: soft-light;
-  opacity: var(--o, 0);
-}
-.carta-efecto__glare {
+/* Reflejo: capa base y :after del glare, sin recorte */
+.carta-efecto__reflejo {
   background-image: radial-gradient(
-    circle at var(--mxl) var(--myl),
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.12) 25%,
-    transparent 55%
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    hsla(0, 0%, 100%, 0.8) 10%,
+    hsla(0, 0%, 100%, 0.5) 20%,
+    hsla(0, 0%, 0%, 0.75) 90%
   );
+  filter: brightness(0.7) contrast(1.5);
   mix-blend-mode: overlay;
-  opacity: var(--o, 0);
+  opacity: var(--card-opacity, 0);
+}
+.carta-efecto__reflejo-after {
+  background-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    hsl(0, 0%, 100%) 10%,
+    hsla(0, 0%, 100%, 0.5) 20%,
+    hsla(0, 0%, 0%, 0.5) 120%
+  );
+  filter: brightness(1) contrast(1.5);
+  mix-blend-mode: overlay;
+  opacity: var(--card-opacity, 0);
 }
 .carta-efecto__borde {
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.12), inset 0 0 18px rgba(255, 255, 255, 0.08);
