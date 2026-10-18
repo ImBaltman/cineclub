@@ -280,10 +280,8 @@ button, input { font: inherit; }
 }
 .carta__nombre { position: relative; font-size: 13px; line-height: 1.1; font-family: var(--font-display); font-weight: 900; text-transform: uppercase; }
 .carta__tipo { position: relative; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-.carta__rareza { position: relative; align-self: flex-start; margin-top: 6px; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; padding: 2px 6px; border-radius: 999px; border: 1px solid currentColor; }
 .carta--comun { --fondo-1: #2a2a2a; --fondo-2: #070707; }
 .carta--rara { --fondo-1: #5a0a08; --fondo-2: #080202; }
-.carta--rara .carta__rareza { color: var(--blood-2); }
 .carta--vacia { background: transparent; border: 1px dashed rgba(255, 255, 255, 0.15); }
 .carta--vacia .carta__interior { background: transparent; align-items: center; justify-content: center; }
 .carta__signo { font-family: var(--font-display); font-size: 34px; color: rgba(255, 255, 255, 0.18); }
@@ -720,3 +718,21 @@ button, input { font: inherit; }
   cursor: pointer;
 }
 .login__texto { margin: 24px 0 0; max-width: 320px; color: color-mix(in srgb, var(--bone) 80%, transparent); font-size: 14px; line-height: 1.6; }
+
+/* ---------- Compartir (vista de la carta) ---------- */
+.vista-carta__acciones { display: flex; align-items: center; gap: 12px; }
+.vista-carta__compartir {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(17, 17, 17, 0.92);
+  color: var(--bone);
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+.vista-carta__compartir svg { width: 20px; height: 20px; }
+.vista-carta__compartir:disabled { opacity: 0.5; cursor: wait; }
