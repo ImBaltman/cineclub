@@ -736,3 +736,6 @@ button, input { font: inherit; }
 }
 .vista-carta__compartir svg { width: 20px; height: 20px; }
 .vista-carta__compartir:disabled { opacity: 0.5; cursor: wait; }
+
+/* ---------- Selector de película (admin) ---------- */
+.admin__select { width: 100%; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2, #161616); color: var(--bone); font: inherit; font-size: 14px; }
